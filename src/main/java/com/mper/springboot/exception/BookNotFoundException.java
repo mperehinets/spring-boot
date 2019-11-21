@@ -2,8 +2,11 @@ package com.mper.springboot.exception;
 
 public class BookNotFoundException extends RuntimeException {
 
-    public BookNotFoundException(Long bookId) {
-        super(String.format("Book is not found with id: '%s' ", bookId));
+    public BookNotFoundException(String message) {
+        super(message);
     }
 
+    public BookNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

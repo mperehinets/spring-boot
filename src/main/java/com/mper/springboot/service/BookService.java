@@ -2,18 +2,18 @@ package com.mper.springboot.service;
 
 import com.mper.springboot.dto.BookDto;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface BookService {
 
-    List<BookDto> findAll();
+    BookDto createBook(BookDto bookDto);
 
-    BookDto findById(Long id);
+    BookDto updateBook(BookDto bookDto);
 
-    BookDto create(BookDto bookDto);
+    BookDto findBookById(Long bookId);
 
-    BookDto update(BookDto bookDto, Long id);
+    Collection<BookDto> findAllBooks();
 
-    void delete(Long id);
+    void deleteBookById(Long bookId);
 
 }

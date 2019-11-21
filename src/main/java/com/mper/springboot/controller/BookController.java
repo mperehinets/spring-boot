@@ -1,6 +1,5 @@
 package com.mper.springboot.controller;
 
-import com.mper.springboot.dao.Book;
 import com.mper.springboot.dto.BookDto;
 import com.mper.springboot.mapperDto.BookMapper;
 import com.mper.springboot.service.BookService;
@@ -8,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/books")
@@ -26,28 +24,28 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> findAll() {
-        return bookService.findAll();
+    public Collection<BookDto> findAllBooks() {
+        return bookService.findAllBooks();
     }
 
-    @GetMapping("/{id}")
-    public BookDto findById(@PathVariable Long id) {
-        return bookService.findById(id);
+    @GetMapping("/{bookId}")
+    public BookDto findBookById(@PathVariable Long bookId) {
+        return bookService.findBookById(bookId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookDto create(@RequestBody BookDto bookDto) {
-        return bookService.create(bookDto);
+        return bookService.createBook(bookDto);
     }
 
-    @PutMapping("/{id}")
-    public BookDto updateBook(@RequestBody BookDto bookDto, @PathVariable Long id) {
-        return bookService.update(bookDto, id);
+    @PutMapping
+    public BookDto updateBook(@RequestBody BookDto bookDto) {
+        return bookService.updateBook(bookDto);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        bookService.delete(id);
+    @DeleteMapping("/{bookId}")
+    public void delete(@PathVariable Long bookId) {
+        bookService.deleteBookById(bookId);
     }
 }
