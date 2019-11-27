@@ -15,9 +15,5 @@ import java.time.LocalDateTime;
 public class BaseDto {
     private Long id;
 
-    private LocalDateTime created;
-
-    private LocalDateTime updated;
-
     private Status status;
 }

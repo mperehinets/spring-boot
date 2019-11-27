@@ -1,57 +1,14 @@
 package com.mper.springboot.dto;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode
 public class AuthorDto {
-
     private Long id;
 
-    private String name;
+    private String education;
 
-    public AuthorDto(){
-
-    }
-
-    public AuthorDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "AuthorDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AuthorDto authorDto = (AuthorDto) o;
-        return Objects.equals(id, authorDto.id) &&
-                Objects.equals(name, authorDto.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
+    private UserDto user;
 }

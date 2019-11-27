@@ -1,23 +1,23 @@
 package com.mper.springboot.mapperDto;
 
-import com.mper.springboot.dto.AuthorDto;
 import com.mper.springboot.dao.Author;
-import org.springframework.stereotype.Component;
+import com.mper.springboot.dto.AuthorDto;
 
-@Component
 public class AuthorMapper {
 
-    public Author toDao(AuthorDto authorDto) {
+    public static Author toDao(AuthorDto authorDto) {
         Author author = new Author();
         author.setId(authorDto.getId());
-        author.setName(authorDto.getName());
+        author.setEducation(authorDto.getEducation());
+        author.setUser(UserMapper.toDao(authorDto.getUser()));
         return author;
     }
 
-    public AuthorDto toDto(Author author) {
+    public static AuthorDto toDto(Author author) {
         AuthorDto authorDto = new AuthorDto();
         authorDto.setId(author.getId());
-        authorDto.setName(author.getName());
+        authorDto.setEducation(author.getEducation());
+        authorDto.setUser(UserMapper.toDto(author.getUser()));
         return authorDto;
     }
 

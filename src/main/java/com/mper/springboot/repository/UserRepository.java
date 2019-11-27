@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Modifying
     @Query("update User set status='DELETED' where id = :id")
     void deleteById(@Param("id") Long id);
+
+    User findUserByEmail(String email);
 }

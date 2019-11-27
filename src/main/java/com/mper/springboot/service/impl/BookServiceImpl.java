@@ -23,31 +23,31 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto createBook(BookDto bookDto) {
+    public BookDto create(BookDto bookDto) {
         return BookMapper.toDto(bookRepository.save(BookMapper.toDao(bookDto)));
     }
 
     @Override
-    public BookDto updateBook(BookDto bookDto) {
-        findBookById(bookDto.getId());
+    public BookDto update(BookDto bookDto) {
+        findById(bookDto.getId());
         return BookMapper.toDto(bookRepository.save(BookMapper.toDao(bookDto)));
     }
 
     @Override
-    public BookDto findBookById(Long bookId) {
-        return BookMapper.toDto(bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException("Book was not found by id=" + bookId)));
+    public BookDto findById(Long id) {
+        return BookMapper.toDto(bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Book was not found by id=" + id)));
     }
 
     @Override
-    public Collection<BookDto> findAllBooks() {
+    public Collection<BookDto> findAll() {
         Collection<Book> books = (Collection<Book>) bookRepository.findAll();
         return books.stream().map(BookMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public void deleteBookById(Long bookId) {
-        findBookById(bookId);
-        bookRepository.deleteById(bookId);
+    public void deleteById(Long id) {
+        findById(id);
+        bookRepository.deleteById(id);
     }
 }

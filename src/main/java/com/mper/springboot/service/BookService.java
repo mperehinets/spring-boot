@@ -6,14 +6,14 @@ import java.util.Collection;
 
 public interface BookService {
 
-    BookDto createBook(BookDto bookDto);
+    BookDto create(BookDto bookDto);
 
-    BookDto updateBook(BookDto bookDto);
+    BookDto update(BookDto bookDto);
 
-    BookDto findBookById(Long bookId);
+    BookDto findById(Long id);
 
-    Collection<BookDto> findAllBooks();
+    Collection<BookDto> findAll();
 
-    void deleteBookById(Long bookId);
+    void deleteById(Long id);
 
 }

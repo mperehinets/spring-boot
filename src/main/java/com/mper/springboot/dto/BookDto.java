@@ -8,5 +8,5 @@ import lombok.EqualsAndHashCode;
 public class BookDto extends BaseDto {
     private String title;
 
-    private UserDto authorDto;
+    private AuthorDto authorDto;
 }

@@ -15,6 +15,6 @@ public class Book extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private User author;
+    private Author author;
 
 }

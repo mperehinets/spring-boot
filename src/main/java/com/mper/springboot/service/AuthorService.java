@@ -1,17 +1,20 @@
 package com.mper.springboot.service;
 
+import com.mper.springboot.dao.Author;
 import com.mper.springboot.dto.AuthorDto;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface AuthorService {
-    List<AuthorDto> findAll();
-
-    AuthorDto findById(Long id);
 
     AuthorDto create(AuthorDto authorDto);
 
-    AuthorDto update(AuthorDto authorDto, Long id);
+    AuthorDto update(AuthorDto authorDto);
 
-    void delete(Long id);
+    Collection<AuthorDto> findAll();
+
+    void deleteById(Long id);
+
+    AuthorDto findById(Long id);
+
 }

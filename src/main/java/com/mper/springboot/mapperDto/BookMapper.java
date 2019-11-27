@@ -11,9 +11,7 @@ public class BookMapper {
         Book book = new Book();
         book.setId(bookDto.getId());
         book.setTitle(bookDto.getTitle());
-        book.setAuthor(UserMapper.toDao(bookDto.getAuthorDto()));
-        book.setCreated(bookDto.getCreated());
-        book.setUpdated(bookDto.getUpdated());
+        book.setAuthor(AuthorMapper.toDao(bookDto.getAuthorDto()));
         book.setStatus(bookDto.getStatus());
         return book;
     }
@@ -22,9 +20,7 @@ public class BookMapper {
         BookDto bookDto = new BookDto();
         bookDto.setId(book.getId());
         bookDto.setTitle(book.getTitle());
-        bookDto.setAuthorDto(UserMapper.toDto(book.getAuthor()));
-        bookDto.setCreated(book.getCreated());
-        bookDto.setUpdated(book.getUpdated());
+        bookDto.setAuthorDto(AuthorMapper.toDto(book.getAuthor()));
         bookDto.setStatus(book.getStatus());
         return bookDto;
     }

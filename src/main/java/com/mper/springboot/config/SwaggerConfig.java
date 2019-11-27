@@ -1,4 +1,4 @@
-package com.mper.springboot;
+package com.mper.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
