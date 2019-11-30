@@ -12,6 +12,7 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setStatus(userDto.getStatus());
+        user.setRoles(userDto.getRoles());
         return user;
     }
 
@@ -23,6 +24,7 @@ public class UserMapper {
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
         userDto.setStatus(user.getStatus());
+        userDto.setRoles(user.getRoles());
         return userDto;
     }
 }

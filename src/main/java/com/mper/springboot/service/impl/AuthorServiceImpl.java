@@ -4,12 +4,14 @@ import com.mper.springboot.dao.Author;
 import com.mper.springboot.dao.Role;
 import com.mper.springboot.dao.User;
 import com.mper.springboot.dto.AuthorDto;
+import com.mper.springboot.exception.AuthorNotFoundException;
 import com.mper.springboot.exception.UserNotFoundException;
 import com.mper.springboot.mapperDto.AuthorMapper;
 import com.mper.springboot.repository.AuthorRepository;
 import com.mper.springboot.repository.RoleRepository;
 import com.mper.springboot.repository.UserRepository;
 import com.mper.springboot.service.AuthorService;
+import com.mper.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,40 +23,36 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorServiceImpl implements AuthorService {
     private AuthorRepository authorRepository;
-    private UserRepository userRepository;
+    private UserService userService;
     private RoleRepository roleRepository;
 
     @Autowired
-    public AuthorServiceImpl(AuthorRepository authorRepository, UserRepository userRepository, RoleRepository roleRepository) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, UserService userService, RoleRepository roleRepository) {
         this.authorRepository = authorRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.roleRepository = roleRepository;
     }
 
     @Override
     public AuthorDto create(AuthorDto authorDto) {
-        Author author = AuthorMapper.toDao(authorDto);
-
         Role roleUser = roleRepository.findByName("ROLE_TEACHER");
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(roleUser);
 
-        author.getUser().setRoles(userRoles);
+        authorDto.getUser().setRoles(userRoles);
 
-        author.setUser(userRepository.save(author.getUser()));
+        authorDto.setUser(userService.register(authorDto.getUser()));
 
-        return AuthorMapper.toDto(authorRepository.save(author));
+        return AuthorMapper.toDto(authorRepository.save(AuthorMapper.toDao(authorDto)));
     }
 
     @Override
     public AuthorDto update(AuthorDto authorDto) {
-        Author author = AuthorMapper.toDao(authorDto);
+        findById(authorDto.getId());
 
-        author.getUser().setId(authorRepository.findUserIdByAuthorId(author.getId()));
+        userService.update(authorDto.getUser());
 
-        author.setUser(userRepository.save(author.getUser()));
-
-        return AuthorMapper.toDto(authorRepository.save(author));
+        return AuthorMapper.toDto(authorRepository.save(AuthorMapper.toDao(authorDto)));
     }
 
     @Override
@@ -66,12 +64,12 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void deleteById(Long id) {
         findById(id);
-        userRepository.deleteById(authorRepository.findUserIdByAuthorId(id));
+        userService.deleteById(authorRepository.findUserIdByAuthorId(id));
     }
 
     @Override
     public AuthorDto findById(Long id) {
         return AuthorMapper.toDto(authorRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User was nor fount by id = " + id)));
+                .orElseThrow(() -> new AuthorNotFoundException("Author was not fount by id = " + id)));
     }
 }
