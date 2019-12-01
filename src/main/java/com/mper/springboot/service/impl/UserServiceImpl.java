@@ -9,6 +9,7 @@ import com.mper.springboot.repository.RoleRepository;
 import com.mper.springboot.repository.UserRepository;
 import com.mper.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +60,14 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(Long id) {
         return UserMapper.toDto(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User was not found by id=" + id)));
+    }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        User user = userRepository.findUserByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User with username: " + email + " not found");
+        }
+        return UserMapper.toDto(user);
     }
 }
