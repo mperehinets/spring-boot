@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @EqualsAndHashCode
 public class User extends BaseEntity {

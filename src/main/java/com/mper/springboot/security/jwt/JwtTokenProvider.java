@@ -2,8 +2,9 @@ package com.mper.springboot.security.jwt;
 
 import com.mper.springboot.dao.Role;
 import com.mper.springboot.dao.User;
-import com.mper.springboot.exception.JwtAuthenticationException;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
-import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,8 +26,6 @@ public class JwtTokenProvider {
     @Value("${jwt.token.secret}")
     private String secret;
 
-    @Value("${jwt.token.expired}")
-    private long validityInMilliseconds;
 
     private final UserDetailsService userDetailsService;
 
@@ -51,13 +47,8 @@ public class JwtTokenProvider {
 
         claims.put("roles", roles);
 
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-
         return Jwts.builder()//
                 .setClaims(claims)//
-                .setIssuedAt(now)//
-                .setExpiration(validity)//
                 .signWith(SignatureAlgorithm.HS256, secret)//
                 .compact();
     }
@@ -73,24 +64,10 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Book_")) {
-            return bearerToken.substring(5);
+        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+            return bearerToken.substring(7);
         }
         return null;
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
-        }
     }
 
 }

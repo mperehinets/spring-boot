@@ -5,10 +5,8 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
-public class AuthorDto {
+public class AuthorDto extends UserDto {
     private Long id;
 
     private String education;
-
-    private UserDto user;
 }

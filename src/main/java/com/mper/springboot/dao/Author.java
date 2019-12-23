@@ -7,18 +7,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Authors")
+@PrimaryKeyJoinColumn(name = "userId")
 @Data
 @EqualsAndHashCode
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Author extends User {
 
     @Column(name = "education")
     private String education;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 }

@@ -14,7 +14,6 @@ public class Book extends BaseEntity {
     private String title;
 
     @OneToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
 }

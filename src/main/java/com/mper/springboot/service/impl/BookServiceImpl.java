@@ -7,6 +7,7 @@ import com.mper.springboot.mapperDto.BookMapper;
 import com.mper.springboot.repository.BookRepository;
 import com.mper.springboot.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -46,6 +47,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @PreAuthorize("@bookServiceImpl.findById(#id).authorDto.id == authentication.principal.id")
     public void deleteById(Long id) {
         findById(id);
         bookRepository.deleteById(id);

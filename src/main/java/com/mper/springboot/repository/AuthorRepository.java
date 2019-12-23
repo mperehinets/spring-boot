@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
-    @Query(value = "select user_id from authors where id = :id", nativeQuery = true)
-    Long findUserIdByAuthorId(@Param("id") Long id);
+
 
 }
