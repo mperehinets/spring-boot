@@ -2,10 +2,8 @@ package com.mper.springboot.service;
 
 import com.mper.springboot.dao.Book;
 import com.mper.springboot.dao.Status;
-import com.mper.springboot.dao.User;
 import com.mper.springboot.dto.AuthorDto;
 import com.mper.springboot.dto.BookDto;
-import com.mper.springboot.dto.UserDto;
 import com.mper.springboot.exception.BookNotFoundException;
 import com.mper.springboot.mapperDto.BookMapper;
 import com.mper.springboot.repository.BookRepository;
@@ -43,14 +41,10 @@ class BookServiceImplTest {
         AuthorDto authorDto = new AuthorDto();
         authorDto.setId(1L);
         authorDto.setEducation("KEP");
-
-        UserDto userDto = new UserDto();
-        userDto.setStatus(Status.ACTIVE);
-        userDto.setFirstName("Maksym");
-        userDto.setLastName("Perehinets");
-        userDto.setEmail("mpereginec1@gmail.com");
-
-        authorDto.setUser(userDto);
+        authorDto.setStatus(Status.ACTIVE);
+        authorDto.setFirstName("Maksym");
+        authorDto.setLastName("Perehinets");
+        authorDto.setEmail("mpereginec1@gmail.com");
 
 
         bookDto = new BookDto();
