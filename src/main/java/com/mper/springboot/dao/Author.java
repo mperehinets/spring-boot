@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Authors")
-@PrimaryKeyJoinColumn(name = "userId")
+@PrimaryKeyJoinColumn(name = "user_id")
 @Data
 @EqualsAndHashCode
 public class Author extends User {
